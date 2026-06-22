@@ -1,0 +1,334 @@
+/* ============================================================
+   DESIGN TOKENS — change these to retheme the whole site
+   Southwest desert palette: clay/rust, desert turquoise, sand
+   ============================================================ */
+:root {
+  --sand:       #ECDFC4;  /* base background — warm desert sand */
+  --sand-deep:  #DEC89C;  /* card / photo-placeholder background */
+  --clay:       #AD4F2C;  /* primary accent — red rock / terracotta */
+  --turquoise:  #3B6B61;  /* secondary accent — desert turquoise */
+  --dusk:       #2B2530;  /* primary text — desert twilight, not pure black */
+  --dusk-soft:  #6E625C;  /* secondary text */
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body:    "IBM Plex Sans", -apple-system, sans-serif;
+  --font-mono:    "IBM Plex Mono", "SF Mono", monospace;
+
+  --measure: 38rem;
+  --gap-section: clamp(3.5rem, 8vw, 6.5rem);
+  --page-pad: clamp(1.25rem, 5vw, 3.5rem);
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--sand);
+  color: var(--dusk);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: var(--font-display); font-weight: 500; margin: 0; }
+p { margin: 0 0 1em; }
+a {
+  color: var(--dusk);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+a:hover { color: var(--clay); }
+ul { margin: 0; padding: 0; list-style: none; }
+img { max-width: 100%; display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 3px;
+}
+
+.placeholder { color: var(--clay); opacity: 0.85; }
+
+/* ============================================================
+   HEADER / NAV
+   ============================================================ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  padding: 1rem var(--page-pad);
+  background: var(--sand);
+  border-bottom: 1px solid var(--dusk-soft);
+}
+.wordmark {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  border-bottom: none;
+}
+.wordmark-mark { display: none; }
+.site-nav { display: flex; flex-wrap: wrap; }
+.site-nav a {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: none;
+  color: var(--dusk-soft);
+  margin-right: 1.4rem;
+}
+.site-nav a:last-child { margin-right: 0; }
+.site-nav a:hover, .site-nav a.is-current { color: var(--clay); }
+
+/* ============================================================
+   DIVIDER — the recurring signature mark between sections.
+   A soft gradient line, warm clay fading to cool turquoise,
+   like light easing across the horizon at dusk.
+   ============================================================ */
+.divider {
+  height: 1px;
+  margin: 0 var(--page-pad);
+  background: linear-gradient(to right, transparent, var(--clay) 30%, var(--turquoise) 70%, transparent);
+  opacity: 0.6;
+  border: none;
+}
+
+/* ============================================================
+   HERO (home page)
+   ============================================================ */
+.hero {
+  padding: clamp(2.5rem, 8vw, 4.5rem) var(--page-pad) clamp(2.5rem, 6vw, 4rem);
+}
+.hero-inner {
+  max-width: 64rem;
+  margin: 0 auto;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(2rem, 6vw, 4rem);
+  align-items: center;
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--turquoise);
+  margin: 0 0 1rem;
+}
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  line-height: 1.05;
+  margin-bottom: 0.5rem;
+}
+.role {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--dusk-soft);
+  margin-bottom: 1.5rem;
+}
+.bio {
+  font-size: 1.05rem;
+  max-width: 30rem;
+  margin-bottom: 1.75rem;
+}
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+}
+.link-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid var(--dusk);
+  padding-bottom: 2px;
+}
+.link-arrow:hover { border-color: var(--clay); }
+
+/* photo frame — sized for the portrait shot */
+.portrait-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  min-height: 380px; /* fallback for browsers without aspect-ratio support */
+  border: 1px solid var(--clay);
+  background: var(--sand-deep);
+  overflow: hidden;
+}
+.portrait-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* ============================================================
+   SECTIONS (shared)
+   ============================================================ */
+.section {
+  padding: var(--gap-section) var(--page-pad);
+  max-width: 50rem;
+  margin: 0 auto;
+}
+.section-inner { max-width: var(--measure); }
+
+.reveal { opacity: 1; transform: none; }
+.reveal.js-armed {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.js-armed.is-visible { opacity: 1; transform: none; }
+
+/* ============================================================
+   PUBLICATIONS — empty state
+   ============================================================ */
+.empty-state {
+  border: 1px solid var(--dusk-soft);
+  padding: clamp(1.75rem, 5vw, 2.5rem);
+  max-width: var(--measure);
+}
+.empty-state .empty-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+.empty-state p:last-child { margin-bottom: 0; }
+.empty-state .empty-note {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--dusk-soft);
+}
+
+/* a real publication entry, once added (see HTML comment template) */
+.pub {
+  max-width: var(--measure);
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--dusk-soft);
+}
+.pub:first-of-type { padding-top: 0; }
+.pub .status {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 0.5rem;
+}
+.pub h3 { font-size: 1.15rem; margin-bottom: 0.3rem; }
+.pub .venue {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--dusk-soft);
+  margin-bottom: 0.5rem;
+}
+.pub p:last-child { margin-bottom: 0; color: var(--dusk-soft); }
+
+/* ============================================================
+   CV PAGE
+   ============================================================ */
+.cv-header {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 8vw, 4rem) var(--page-pad) clamp(1.5rem, 5vw, 2rem);
+}
+.cv-header h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin-bottom: 0.5rem; }
+.cv-block { margin-bottom: 0; }
+.cv-block h2 {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--turquoise);
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+}
+.cv-entry {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 1.5rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--dusk-soft);
+  max-width: var(--measure);
+}
+.cv-entry:first-child { padding-top: 0; }
+.cv-entry .cv-year {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--dusk-soft);
+}
+.cv-entry .cv-detail strong { display: block; margin-bottom: 0.2rem; }
+.cv-entry .cv-detail span { color: var(--dusk-soft); font-size: 0.95rem; }
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: var(--measure);
+}
+.skills-list li {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--dusk-soft);
+  border: 1px solid var(--dusk-soft);
+  border-radius: 100px;
+  padding: 0.35rem 0.85rem;
+}
+
+/* ============================================================
+   CONTACT / FOOTER
+   ============================================================ */
+.contact-email a {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+}
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+}
+.contact-links a {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+.site-footer { padding-bottom: 3rem; }
+.site-footer p {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--dusk-soft);
+  text-align: center;
+  margin: 1.75rem var(--page-pad) 0;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 760px) {
+  .hero-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .site-header { flex-direction: column; align-items: flex-start; }
+  .cv-entry { grid-template-columns: 1fr; gap: 0.25rem; }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal.js-armed { opacity: 1; transform: none; transition: none; }
+}
